@@ -12,4 +12,5 @@ for line in f:
   tone = device.create_tone(ord(each_charline) + 1000)
   tone.play()
 f.close()
+tone.stop()
 ####print(bin(reduce(lambda x, y: 256*x+y, (ord(c) for c in n), 0))) <-- Binary Only
