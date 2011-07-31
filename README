@@ -1,0 +1,33 @@
+- File Transfer over Fibre|Laser|Audio -
+----------------------------------------
+Dependencies:
+	Python
+	OSS Sound (Has dependencies of it's own as well)
+	Audiere (Has dependencies of it's own as well)
+	PyAudiere 
+	Linux,Mac OSX, or Windows computer
+
+Steps Linux:
+	Install libaudiere-dev from repository:
+		may have to add a repo to your /etc/apt/sources.list
+	Download PyAudiere source and follow it's readme to Compile
+	Follow this guide to install OSS, reboot after installed:
+		https://help.ubuntu.com/community/OpenSound
+
+Steps Mac:
+	*not tested yet*
+Steps Windows:
+	*not tested yet*
+
+Usage: user@computer:~$ python encoding.py
+       Enter path to file: /home/user/file.txt
+       *Tone(s) Playing*
+       user@computer:~$ 
+
+Changelog:
+	Version 0.01 - 7/31/2011 -Initial Release of Encoder
+
+Bugs:
+	Fatal Python Error on larger arrays of text/files - In V0.01
+ToDo:
+	Make Decoder		
