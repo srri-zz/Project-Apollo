@@ -9,8 +9,8 @@ from scipy import fft
 ##SAMPLING_RATE = 11025
 ##SPECTROGRAM_LENGTH = 100
 
-sinput = (raw_input("Hit enter to start recording: "))
-srecordTime = (raw_input("How many seconds would you like to record?"))
+raw_input("Hit enter to start recording")
+srecordTime = (raw_input("How many seconds would you like to record: "))
 
 def get_audio_data():
     pa = pyaudio.PyAudio()
