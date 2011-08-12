@@ -7,7 +7,7 @@ Dependencies:
 	PyAudiere 
 	Numpy/Scipy
 	PyAudio
-	Bz2
+	Bz2 or itertools (for XOR)
 	Linux,Mac OSX, or Windows computer
 
 Steps Linux:
@@ -30,7 +30,8 @@ Usage: user@computer:~$ python encoding.py
 Changelog:
 	Version 0.01 - 7/31/2011 -Initial Release of Encoder
 	Version 0.02 - 8/04/2011 -Initial Release of Decoder + bug fixes-
-	Version 0.03 - 8/11/2011 -Added Bz2 Compression in Encoder and Decoder
+	Version 0.03 - 8/11/2011 -(Optional) Added Bz2 Compression in Encoder and Decoder
+	Version 0.04 - 8/11/2011 -Added XOR + OTP Encryption (Not Tested Yet)
 Bugs:
 	Fatal Python Error on larger arrays of text/files - In V0.01
 	^ Resource issue with PyAudiere 
