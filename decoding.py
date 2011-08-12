@@ -4,14 +4,14 @@ import pyaudio
 import wave
 import sys
 import numpy as np
-
+import bz2
 
 chunk = 2048
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
-WAVE_OUTPUT_FILENAME = "output.wav"
+WAVE_OUTPUT_FILENAME = "read.wav"
 
 p = pyaudio.PyAudio()
 
@@ -41,7 +41,7 @@ wf.writeframes(data)
 wf.close()
 
 # open up a wave
-wf = wave.open('output.wav', 'rb')
+wf = wave.open('read.wav', 'rb')
 swidth = wf.getsampwidth()
 RATE = wf.getframerate()
 # use a Blackman window
@@ -73,10 +73,11 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        print (chr(int(thefreq - 1000)))
+        print bz2.decompress(chr(int(thefreq - 1000)))
+        outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
     else:
-        thefreq = which*RATE/chunk
-        print (chr(int(thefreq - 1000)))
+        print bz2.decompress(chr(int(thefreq - 1000)))
+        outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
     # read some more data
     data = wf.readframes(chunk)
 if data:
