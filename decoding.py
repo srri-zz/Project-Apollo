@@ -5,12 +5,18 @@ import wave
 import sys
 import numpy as np
 import bz2
+from itertools import izip, cycle
+
+def xor_crypt_string(data, key):
+    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
 
 chunk = 2048
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
+userkey = raw_input("Expected key entry: ")
+raw_input("Press any key to start recording")
 WAVE_OUTPUT_FILENAME = "read.wav"
 
 p = pyaudio.PyAudio()
@@ -73,11 +79,13 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        print bz2.decompress(chr(int(thefreq - 1000)))
-        outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
+        #print bz2.decompress(chr(int(thefreq - 1000)))
+        #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
+        outputfile = xor_crypt_string((chr(int(thefreq - 1000))), userkey)
     else:
-        print bz2.decompress(chr(int(thefreq - 1000)))
-        outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
+        #print bz2.decompress(chr(int(thefreq - 1000)))
+        #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
+        outputfile = xor_crypt_string((chr(int(thefreq - 1000))), userkey)
     # read some more data
     data = wf.readframes(chunk)
 if data:
