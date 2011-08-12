@@ -7,6 +7,7 @@ Dependencies:
 	PyAudiere 
 	Numpy/Scipy
 	PyAudio
+	Bz2
 	Linux,Mac OSX, or Windows computer
 
 Steps Linux:
@@ -29,8 +30,7 @@ Usage: user@computer:~$ python encoding.py
 Changelog:
 	Version 0.01 - 7/31/2011 -Initial Release of Encoder
 	Version 0.02 - 8/04/2011 -Initial Release of Decoder + bug fixes-
+	Version 0.03 - 8/11/2011 -Added Bz2 Compression in Encoder and Decoder
 Bugs:
 	Fatal Python Error on larger arrays of text/files - In V0.01
 	^ Resource issue with PyAudiere 
-ToDo:
-	Make Decoder   -  Done	
