@@ -34,6 +34,7 @@ Changelog:
 	Version 0.03 - 8/11/2011 -(Optional) Added Bz2 Compression in Encoder and Decoder
 	Version 0.04 - 8/11/2011 -Added XOR + OTP Encryption (Not Tested Yet)
 	Version 0.05 - 8/13/2011 -Added AES256 Encryption, XOR isn't good enough! As usual, can't test decoding, encoding seems faster as well
+	Version 0.06 - 8/14/2011 -Fixed AES Encryption, added accurate Hz readout for debugging
 Bugs:
 	Fatal Python Error on larger arrays of text/files - In V0.01
 	^ Resource issue with PyAudiere 

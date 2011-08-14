@@ -7,6 +7,7 @@ import base64
 import os
 #from itertools import izip, cycle
 device = audiere.open_device()
+
 BLOCK_SIZE = 32
 PADDING = '{'
 pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
@@ -26,7 +27,7 @@ for line in f:
  enc_line = EncodeAES(cipher, line)
  each_charline = [enc_line]
  for each_charline in enc_line:
-  print(ord(each_charline))  #\-Debugging prints for  
+  print((ord(each_charline)+1000), 'Hz')  #\-Debugging prints for  
   print(each_charline)       #/-Fatal error :(
   tone = device.create_tone(ord(each_charline) + 1000)
   tone.play()
