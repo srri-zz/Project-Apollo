@@ -18,13 +18,12 @@ cipher = AES.new(secret)
  #   return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
 openfile = raw_input("Enter path to file: ")
 f = open(openfile)
-userkey = raw_input("Enter a random key: ")
 for line in f:
  #each_charline = [line]
  #enc_line = bz2.compress(line) #compression
  #each_charline = [enc_line] 
  #enc_line = xor_crypt_string(line, userkey) #XOR'd Encryption
- enc_line = EncodeAES(cipher, userkey)
+ enc_line = EncodeAES(cipher, line)
  each_charline = [enc_line]
  for each_charline in enc_line:
   print(ord(each_charline))  #\-Debugging prints for  

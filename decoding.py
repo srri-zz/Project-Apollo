@@ -5,9 +5,10 @@ import pyaudio
 import wave
 import sys
 import numpy as np
-from Crypto.Cipher import AES
 import base64
 import os
+from Crypto.Cipher import AES
+
 #import bz2
 #from itertools import izip, cycle
 
