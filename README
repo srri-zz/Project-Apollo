@@ -7,7 +7,8 @@ Dependencies:
 	PyAudiere 
 	Numpy/Scipy
 	PyAudio
-	Bz2 or itertools (for XOR)
+	#Bz2 or itertools (for XOR or Bz2 Compression)
+	PyCrypto - (For AES)
 	Linux,Mac OSX, or Windows computer
 
 Steps Linux:
@@ -32,6 +33,7 @@ Changelog:
 	Version 0.02 - 8/04/2011 -Initial Release of Decoder + bug fixes-
 	Version 0.03 - 8/11/2011 -(Optional) Added Bz2 Compression in Encoder and Decoder
 	Version 0.04 - 8/11/2011 -Added XOR + OTP Encryption (Not Tested Yet)
+	Version 0.05 - 8/13/2011 -Added AES256 Encryption, XOR isn't good enough! As usual, can't test decoding, encoding seems faster as well
 Bugs:
 	Fatal Python Error on larger arrays of text/files - In V0.01
 	^ Resource issue with PyAudiere 
