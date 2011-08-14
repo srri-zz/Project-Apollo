@@ -1,14 +1,26 @@
 #Decoder code modified from Sample code for PyAudio
+#Added AES256 Encryption
 
 import pyaudio
 import wave
 import sys
 import numpy as np
-import bz2
-from itertools import izip, cycle
+from Crypto.Cipher import AES
+import base64
+import os
+#import bz2
+#from itertools import izip, cycle
 
-def xor_crypt_string(data, key):
-    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
+BLOCK_SIZE = 32
+PADDING = '{'
+pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
+EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
+secret = os.urandom(BLOCK_SIZE)
+cipher = AES.new(secret)
+DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
+
+#def xor_crypt_string(data, key):
+ #   return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
 
 chunk = 2048
 FORMAT = pyaudio.paInt16
@@ -81,11 +93,11 @@ while len(data) == chunk*swidth:
         thefreq = (which+x1)*RATE/chunk
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputfile = xor_crypt_string((chr(int(thefreq - 1000))), userkey)
+        outputfile = DecodeAES(cipher, (chr(int(thefreq - 1000)))
     else:
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputfile = xor_crypt_string((chr(int(thefreq - 1000))), userkey)
+	outputfile = DecodeAES(cipher, (chr(int(thefreq - 1000)))
     # read some more data
     data = wf.readframes(chunk)
 if data:
