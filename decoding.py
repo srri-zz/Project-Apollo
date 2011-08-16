@@ -9,17 +9,6 @@ import base64
 import os
 from Crypto.Cipher import AES
 
-#import bz2
-#from itertools import izip, cycle
-
-BLOCK_SIZE = 32
-PADDING = '{'
-pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
-EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
-secret = os.urandom(BLOCK_SIZE)
-cipher = AES.new(secret)
-DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
-
 #def xor_crypt_string(data, key):
  #   return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
 
@@ -28,7 +17,9 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
-userkey = raw_input("Expected key entry: ")
+key = raw_input("Enter expected key with a length of 16, or 32 Characters: ")
+mode = AES.MODE_CBC
+encryptor = AES.new(key, mode)
 raw_input("Press any key to start recording")
 WAVE_OUTPUT_FILENAME = "read.wav"
 
@@ -94,11 +85,11 @@ while len(data) == chunk*swidth:
         thefreq = (which+x1)*RATE/chunk
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputfile = DecodeAES(cipher, (chr(int(thefreq - 1000)))
+        outputfile = (encryptor.decrypt(base64.b64decode(chr(int(thefreq / (440/(1.0/256))))))) #math could be wrong!
     else:
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-	outputfile = DecodeAES(cipher, (chr(int(thefreq - 1000)))
+	outputfile = (encryptor.decrypt(base64.b64decode(chr(int(thefreq / (440/(1.0/256)))))))
     # read some more data
     data = wf.readframes(chunk)
 if data:

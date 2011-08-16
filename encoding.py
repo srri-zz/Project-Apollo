@@ -1,36 +1,28 @@
-#By Steven Richards
+#By Steven Richards <sbrichards@{mit.edu, gnu.org, ieee.org}> and Sam Phippen <samphippen@googlemail.com>
 #ASCII encoder to frequency tone
 import audiere
-#import bz2
 from Crypto.Cipher import AES
 import base64
 import os
-#from itertools import izip, cycle
+from time import sleep
+from binascii import hexlify
+#key_input = raw_input('Define a key: ')
+key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
+mode = AES.MODE_ECB
+encryptor = AES.new(key, mode)
 device = audiere.open_device()
 
-BLOCK_SIZE = 32
-PADDING = '{'
-pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
-EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
-secret = os.urandom(BLOCK_SIZE)
-cipher = AES.new(secret)
-
-#def xor_crypt_string(data, key):
- #   return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
 openfile = raw_input("Enter path to file: ")
 f = open(openfile)
-for line in f:
- #each_charline = [line]
- #enc_line = bz2.compress(line) #compression
- #each_charline = [enc_line] 
- #enc_line = xor_crypt_string(line, userkey) #XOR'd Encryption
- enc_line = EncodeAES(cipher, line)
- each_charline = [enc_line]
- for each_charline in enc_line:
-  print((ord(each_charline)+1000), 'Hz')  #\-Debugging prints for  
-  print(each_charline)       #/-Fatal error :(
-  tone = device.create_tone(ord(each_charline) + 1000)
-  tone.play()
- tone.stop()
- # print(bin(reduce(lambda x, y: 256*x+y, (ord(c) for c in each_charline), 0))) #<-- Binary Only
+file_data = f.read()
+file_data += "\n" * (16-len(file_data) % 16)
+enc_file = base64.b64encode(encryptor.encrypt(file_data))
+#create a one herz tone
+tone = device.create_tone(440)
+tone.play()
+for char in enc_file:
+  print char
+  tone.pitchshift = (ord(char) * 1.0/256)
+  sleep(0.01)
+  print char
 f.close()
