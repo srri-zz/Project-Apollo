@@ -1,5 +1,5 @@
 #Authors: 
-#Steven Richards <sbrichards@{mit.edu, gnu.org, ieee.org}>
+#Steven Richards <sbrichards@{mit.edu, gnu.org}>
 #Sam Phippen <samphippen@googlemail.com>
 #ASCII encoder to frequency tone
 import audiere
