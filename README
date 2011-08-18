@@ -7,7 +7,6 @@ Dependencies:
 	PyAudiere 
 	Numpy/Scipy
 	PyAudio
-	#Bz2 or itertools (for XOR or Bz2 Compression)
 	PyCrypto - (For AES)
 	Linux,Mac OSX, or Windows computer
 
@@ -36,6 +35,9 @@ Changelog:
 	Version 0.05 - 8/13/2011 -Added AES256 Encryption, XOR isn't good enough! As usual, can't test decoding, encoding seems faster as well
 	Version 0.06 - 8/14/2011 -Fixed AES Encryption, added accurate Hz readout for debugging
 	Version 0.07 - 8/15/2011 -Fixed Encryption overall, now works! I <3 Sam Phippen, also decoding needs to be checked
+	Version 0.08 - 8/17/2011 -Modified Decoding.py to append ascii values to string then convert string back to original text
 Bugs:
 	Fatal Python Error on larger arrays of text/files - In V0.01
 	^ Resource issue with PyAudiere 
+	Ensure Decoding.py reads frequencies at same rate that encoding.py sends them,
+	IE: don't read same Freq. twice

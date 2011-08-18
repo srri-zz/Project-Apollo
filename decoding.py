@@ -67,6 +67,7 @@ stream = p.open(format =
 # read some data
 data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
+outputstring_enc = ''
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
@@ -85,14 +86,17 @@ while len(data) == chunk*swidth:
         thefreq = (which+x1)*RATE/chunk
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputfile = (encryptor.decrypt(base64.b64decode(chr(int(thefreq / (440/(1.0/256))))))) #math could be wrong!
+        outputstring_enc.append(chr(int(thefreq / (440/(1.0/256)))) #math could be wrong!
     else:
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-	outputfile = (encryptor.decrypt(base64.b64decode(chr(int(thefreq / (440/(1.0/256)))))))
+	outputstring_enc.append(chr(int(thefreq / (440/(1.0/256))))
     # read some more data
     data = wf.readframes(chunk)
 if data:
     stream.write(data)
 stream.close()
 p.terminate()
+
+decrypted_string = (encryptor.decrypt(base64.b64decode(outputstring_enc)))
+print decrypted_string
