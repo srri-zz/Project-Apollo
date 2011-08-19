@@ -19,7 +19,7 @@ enc_file = base64.b64encode(encryptor.encrypt(file_data))
 #outputstring_enc += (chr(int(thefreq)))
 brokenstring = ''
 for char in enc_file:
-    brokenstring += char
-
+    brokenstring += str(ord(char)) + ','
+print brokenstring
 decrypted_string = (encryptor.decrypt(base64.b64decode(brokenstring)))
-print decrypted_string
+#print decrypted_string

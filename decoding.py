@@ -86,11 +86,11 @@ while len(data) == chunk*swidth:
         thefreq = (which+x1)*RATE/chunk
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputstring_enc.append(chr(int(thefreq / (440/(1.0/256)))) #math could be wrong!
+        outputstring_enc += (chr(int(thefreq / (440/(1.0/256)))) #math could be wrong!
     else:
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-	outputstring_enc.append(chr(int(thefreq / (440/(1.0/256))))
+	outputstring_enc += (chr(int(thefreq / (440/(1.0/256))))
     # read some more data
     data = wf.readframes(chunk)
 if data:
