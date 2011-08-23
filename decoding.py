@@ -7,10 +7,8 @@ import sys
 import numpy as np
 import base64
 import os
+from math import sqrt
 from Crypto.Cipher import AES
-
-#def xor_crypt_string(data, key):
- #   return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in izip(data, cycle(key)))
 
 chunk = 2048
 FORMAT = pyaudio.paInt16
@@ -86,11 +84,11 @@ while len(data) == chunk*swidth:
         thefreq = (which+x1)*RATE/chunk
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputstring_enc += (chr(int(thefreq / (440/(1.0/256)))) #math could be wrong!
+        outputstring_enc += chr(int(sqrt(thefreq)))
     else:
         #print bz2.decompress(chr(int(thefreq - 1000)))
         #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-	outputstring_enc += (chr(int(thefreq / (440/(1.0/256))))
+	outputstring_enc += chr(int(sqrt(thefreq)))
     # read some more data
     data = wf.readframes(chunk)
 if data:
@@ -98,5 +96,10 @@ if data:
 stream.close()
 p.terminate()
 
-decrypted_string = (encryptor.decrypt(base64.b64decode(outputstring_enc)))
+if len(key) == 16:
+	outputstring_enc += "/n" * (16-len(brokenstring) % 16)
+else:
+	outputstring_enc += "/n" * (32-len(brokenstring) % 32)
+
+decrypted_string = encryptor.decrypt(base64.b64decode(outputstring_enc))
 print decrypted_string
