@@ -3,9 +3,9 @@
 #Sam Phippen <samphippen@googlemail.com>
 #ASCII encoder to frequency tone
 import audiere
-from Crypto.Cipher import AES
 import base64
 import os
+from Crypto.Cipher import AES
 from time import sleep
 from math import sqrt
 key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
