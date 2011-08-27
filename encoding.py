@@ -11,7 +11,7 @@ from math import sqrt
 key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
 mode = AES.MODE_ECB #ECB AES
 encryptor = AES.new(key, mode)
-#device = audiere.open_device()#Open and assign the audio device
+device = audiere.open_device()#Open and assign the audio device
 
 openfile = raw_input("Enter path to file: ")#File to encrypt
 f = open(openfile)
@@ -34,7 +34,7 @@ def toneplayer(char):
 brokenstring = ''
 for char in enc_file:
   toneplayer(char)
-  #print new_frequency(char)
+  print new_frequency(char)
   #brokenstring += chr(int(sqrt(new_frequency(char))))
 f.close()
 
