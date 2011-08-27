@@ -24,7 +24,8 @@ else:
 enc_file = base64.b64encode(encryptor.encrypt(file_data))#Encrypt
 
 def new_frequency(char):
-    return ord(char)**2
+    sleep(0.001)
+    return ord(char)*2 + 1000
 
 def toneplayer(char):
     tone = device.create_tone(new_frequency(char))
