@@ -84,7 +84,7 @@ while len(data) == chunk*swidth:
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
         if int(thefreq) >= 1000:
-		tempchar = int(thefreq / 1000) / 2
+		tempchar = int(thefreq - 1000) / 2
 		outputstring_enc += chr(tempchar)
     # read some more data
     data = wf.readframes(chunk)
