@@ -12,6 +12,7 @@ from Crypto.Cipher import AES
 
 chunk = 2048
 FORMAT = pyaudio.paInt16
+HOST = pyaudio.paOSS
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
@@ -82,13 +83,9 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        #print bz2.decompress(chr(int(thefreq - 1000)))
-        #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-        outputstring_enc += chr(int(sqrt(thefreq)))
-    else:
-        #print bz2.decompress(chr(int(thefreq - 1000)))
-        #outputfile_string =  bz2.decompress(chr(int(thefreq - 1000)))
-	outputstring_enc += chr(int(sqrt(thefreq)))
+        if int(thefreq) >= 1000:
+		tempchar = int(thefreq / 1000) / 2
+		outputstring_enc += chr(tempchar)
     # read some more data
     data = wf.readframes(chunk)
 if data:
