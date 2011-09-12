@@ -25,12 +25,12 @@ enc_file = base64.b64encode(encryptor.encrypt(file_data))#Encrypt
 
 def new_frequency(char):
     sleep(0.001)
-    return ord(char)*2 + 1000
+    return ((ord(char) * 10) + 1000)
 
 def toneplayer(char):
     tone = device.create_tone(new_frequency(char))
     tone.play()
-    sleep(0.01)
+    sleep(0.09)#keep modifying this number
 
 brokenstring = ''
 for char in enc_file:
@@ -38,7 +38,7 @@ for char in enc_file:
   print new_frequency(char)
   #brokenstring += chr(int(sqrt(new_frequency(char))))
 f.close()
-
+print enc_file
 #print brokenstring
 #
 #if len(key) == 16:
