@@ -6,6 +6,7 @@ import wave
 import sys
 import numpy as np
 import base64
+import binascii
 import os
 from math import sqrt
 from Crypto.Cipher import AES
@@ -66,7 +67,7 @@ stream = p.open(format =
 # read some data
 data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
-outputstring_enc = ''
+outputstring_enc = '0b'
 
 while len(data) == chunk*swidth:
     # write data out to the audio stream
@@ -84,9 +85,9 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        if int(round(thefreq)) > 500 & int(round(thefreq)) < 800 :
+        if int(round(thefreq)) > 400 & int(round(thefreq)) < 600 :
                 outputstring_enc += '1'
-	if int(round(thefreq)) > 800 & int(round(thefreq)) < 1200:
+	if int(round(thefreq)) > 900 & int(round(thefreq)) < 1100:
 		outputstring_enc += '0'
     # read some more data
     data = wf.readframes(chunk)
@@ -94,7 +95,10 @@ if data:
     stream.write(data)
 stream.close()
 p.terminate()
-#decode binary string int(outputstring_enc) <ask someone about this...
+
+decodedstring = int(outputstring_enc, 2)
+outputstring_enc = binascii.unhexlify('%x' % decodedstring)
+
 if len(key) == 16:
 	outputstring_enc += "/n" * (16-len(outputstring_enc) % 16)
 else:

@@ -4,6 +4,7 @@
 
 import audiere
 import base64
+import binascii
 import os
 from Crypto.Cipher import AES
 from time import sleep
@@ -23,9 +24,9 @@ else:
   file_data += "\n" * (32-len(file_data) % 32)#Make length of file data 32
 
 enc_file = base64.b64encode(encryptor.encrypt(file_data))#Encrypt
-enc_file = (bin(reduce(lambda x, y: 256*x+y, (ord(c) for c in enc_file), 0)))
-enc_file = enc_file[2:]
-brokenstring = ''
+enc_file = bin(int(binascii.hexlify(enc_file), 16))
+enc_file = str(enc_file[2:])
+
 def new_frequency(char):
     sleep(0.001)
     if char == '1':
@@ -37,7 +38,7 @@ def toneplayer(char):
     tone = device.create_tone(new_frequency(char))
     tone.play()
 
-for char in enc_file:
+for char in str(enc_file):
   toneplayer(char)
 f.close()
 

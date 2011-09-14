@@ -1,17 +1,19 @@
-----------------------------------------
-- File Transfer over Fibre|Laser|Audio -
-----------------------------------------
+---------------------------------------------------------------------
+- Binary/ASCII Based AES256 Encrypted Point-to-Point Laser Encoding -
+---------------------------------------------------------------------
+
 License: MIT License - See LICENSE file
 
 Dependencies:
 	Python
-	OSS Sound (Has dependencies of it's own as well)
+	Binascii 	
+	Linux Only - OSS Sound (Has dependencies of it's own as well)
 	Audiere (Has dependencies of it's own as well)
 	PyAudiere 
-	Numpy/Scipy
+	Numpy
 	PyAudio
 	PyCrypto - (For AES)
-	Linux,Mac OSX, or Windows computer
+	Linux, Mac OSX, or Windows computer
 
 Steps Linux:
 	Install libaudiere-dev from repository:
@@ -19,16 +21,21 @@ Steps Linux:
 	Download PyAudiere source and follow it's readme to Compile
 	Follow this guide to install OSS, reboot after installed:
 		https://help.ubuntu.com/community/OpenSound
+	Limited testing, OSS doesn't play well with my computers
 
 Steps Mac:
 	*not tested yet*
-Steps Windows:
-	*not tested yet*
 
-Usage: user@computer:~$ python encoding.py
+Steps Windows:
+	Tested: Install all dependencies above, they all work in Windows
+	(quite easily actually)
+
+Usage (Linux): user@computer:~$ python encoding.py
        Enter path to file: /home/user/file.txt
        *Tone(s) Playing*
        user@computer:~$ 
+
+Usage (Windows): Simply run the code in IDLE or via the Windows CLI 
 
 Changelog:
 	Version 0.01 - 7/31/2011 -Initial Release of Encoder
@@ -41,6 +48,7 @@ Changelog:
 	Version 0.08 - 8/17/2011 -Modified Decoding.py
 	Version 0.09 - 8/23/2011 -Fixed Encoding/Decoding. Changed Encoding Algorithm, added test code
 	Version 0.10 - 8/27/2011 -Verified Decoding Algorithm, testing phase with hardware
+	Version 1.00 - 9/13/2011 -Verified and Tested, just tinkering now, released binary version
 Bugs:
 	Fatal Python Error on larger arrays of text/files - In V0.01
 	^ Resource issue with PyAudiere 
