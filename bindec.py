@@ -17,9 +17,9 @@ HOST = pyaudio.paOSS
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
-key = raw_input("Enter expected key with a length of 16, or 32 Characters: ")
-mode = AES.MODE_CBC
-encryptor = AES.new(key, mode)
+#key = raw_input("Enter expected key with a length of 16, or 32 Characters: ")
+#mode = AES.MODE_CBC
+#encryptor = AES.new(key, mode)
 raw_input("Press any key to start recording")
 WAVE_OUTPUT_FILENAME = "read.wav"
 
@@ -85,24 +85,19 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        if int(round(thefreq)) > 400 & int(round(thefreq)) < 600 :
+        print thefreq
+        if int(thefreq) < 500 and int(thefreq) > 400 :
                 outputstring_enc += '1'
-	if int(round(thefreq)) > 900 & int(round(thefreq)) < 1100:
-		outputstring_enc += '0'
+        elif int(thefreq) < 400 and int(thefreq) > 300:
+                outputstring_enc += '0'
     # read some more data
     data = wf.readframes(chunk)
 if data:
     stream.write(data)
 stream.close()
 p.terminate()
-
+print outputstring_enc
 decodedstring = int(outputstring_enc, 2)
 outputstring_enc = binascii.unhexlify('%x' % decodedstring)
-
-if len(key) == 16:
-	outputstring_enc += "/n" * (16-len(outputstring_enc) % 16)
-else:
-	outputstring_enc += "/n" * (32-len(outputstring_enc) % 32)
-
-decrypted_string = encryptor.decrypt(base64.b64decode(outputstring_enc))
-print decrypted_string
+#decrypted_string = base64.b64decode(outputstring_enc)
+print outputstring_enc
