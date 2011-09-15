@@ -1,0 +1,8 @@
+So we can transfer data and read a signal, but we need a better means of 
+accuracy, as it can currently read the same tone emitted, twice, 3 times, or
+just skip over it. whether this means a sort of marker variable frequency
+to identify it is about to play a tone and another to signify it has finished
+playing a tone. or a type of counter number added on to the tone so each 
+tone is unique but decipherable on the receiving end.
+
+Brainstorm time :-D
