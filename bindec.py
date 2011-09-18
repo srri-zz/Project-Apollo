@@ -10,6 +10,7 @@ import binascii
 import os
 from math import sqrt
 from Crypto.Cipher import AES
+from time import sleep
 
 chunk = 2048
 FORMAT = pyaudio.paInt16
@@ -69,7 +70,7 @@ stream = p.open(format =
 data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
 outputstring_enc = '0b'
-
+counttotwo = 0
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
@@ -87,9 +88,9 @@ while len(data) == chunk*swidth:
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
         print thefreq
-        if int(thefreq) < 500 and int(thefreq) > 400 :
+        if int(thefreq) < 250 and int(thefreq) > 200 :
                 outputstring_enc += '1'
-        elif int(thefreq) < 400 and int(thefreq) > 300:
+        elif int(thefreq) < 180 and int(thefreq) > 170:
                 outputstring_enc += '0'
     # read some more data
     data = wf.readframes(chunk)
@@ -100,6 +101,7 @@ p.terminate()
 decodedstring = int(outputstring_enc, 2)
 outputstring_enc = binascii.unhexlify('%x' % decodedstring)
 #decrypted_string = base64.b64decode(outputstring_enc)
+print outputstring_enc
 if str(outputstring_enc.find('DATA:MESSAGE')) == '0':
 	outputstring_enc = outputstring_enc.replace('DATA:MESSAGE','')
 	print outputstring_enc
