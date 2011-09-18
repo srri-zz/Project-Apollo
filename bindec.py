@@ -1,5 +1,5 @@
-#Decoder code modified from Sample code for PyAudio
-#Added AES256 Encryption
+#Author Steven Richards <sbrichards@mit.edu>
+#Binary Decoding over Laser/Audio
 
 import pyaudio
 import wave
@@ -16,6 +16,7 @@ FORMAT = pyaudio.paInt16
 HOST = pyaudio.paOSS
 CHANNELS = 1
 RATE = 44100
+print "\nAvg. Message (120 characters) takes 1 minute\n"
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
 #key = raw_input("Enter expected key with a length of 16, or 32 Characters: ")
 #mode = AES.MODE_CBC
@@ -96,8 +97,22 @@ if data:
     stream.write(data)
 stream.close()
 p.terminate()
-print outputstring_enc
 decodedstring = int(outputstring_enc, 2)
 outputstring_enc = binascii.unhexlify('%x' % decodedstring)
 #decrypted_string = base64.b64decode(outputstring_enc)
-print outputstring_enc
+if str(outputstring_enc.find('DATA:MESSAGE')) == '0':
+	outputstring_enc = outputstring_enc.replace('DATA:MESSAGE','')
+	print outputstring_enc
+if str(outputstring_enc.find('DATA:FILE')) == '0':
+	name = raw_input("What would you like to name the file?: ")
+	fileobjl = open(name + ".laze", "w")
+	filetype = outputstring_enc[outputstring_enc.find('EXT:'):4]
+	fileobj = open(name + filetype, "w")
+	fileobjl.write(outputstring_enc)
+	outputstring_enc = outputstring_enc.replace('DATA:FILE', '')
+	outputstring_enc = outputstring_enc.replace('EXT:' + filetype, '')
+	fileobj.write(outputstring_enc)
+	fileobj.close()
+	fileobjl.close()
+	raw_input("write successful, press enter to close")
+	exit()
