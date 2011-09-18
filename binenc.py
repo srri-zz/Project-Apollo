@@ -29,13 +29,13 @@ def new_frequency(char):
             if char == '1':
                 tone = device.create_square(450.00)
                 tone.play()
-                sleep(0.039)
+                sleep(0.0476190476)
                 tone.stop()
                 print '450'
             if char == '0':
                 tone = device.create_square(350.00)
                 tone.play()
-                sleep(0.039)
+                sleep(0.0476190476)
                 tone.stop()
                 print '350'
  
