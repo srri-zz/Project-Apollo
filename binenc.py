@@ -10,6 +10,21 @@ from Crypto.Cipher import AES
 from time import sleep
 from math import sqrt
 
+device = audiere.open_device()#Open and assign the audio device
+
+def save(filetext):
+        yn = raw_input("Would you like to save your transmission?: y/n\n")
+        if yn == "y":
+                nameoffile = raw_input("enter a name for the .laze file: \n")
+                fileobj = open(nameoffile + ".laze", "w")
+                fileobj.write(filetext)
+                fileobj.close()
+                raw_input("write successful, press enter to close")
+                exit()
+        if yn != "y":
+                raw_input("press enter to close")
+                exit()
+
 def new_frequency(char):
             if char == '1':
                 tone = device.create_tone(450.00)
@@ -24,10 +39,9 @@ def new_frequency(char):
 
 def message(exist, messageold):
         print "\n\nMessage Entry \n\n"
-##        key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
+##      key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
 ##	mode = AES.MODE_ECB #ECB AES
 ##	encryptor = AES.new(key, mode)
-        device = audiere.open_device()#Open and assign the audio device
         if exist == 1:
                 binmessage = bin(int(binascii.hexlify(messageold), 16))
                 binmessage = str(binmessage[2:])
@@ -50,14 +64,13 @@ def message(exist, messageold):
                 print binmessage
                 for char in binmessage:
                   new_frequency(char)
-                  print char
-        
+		save(messagefix)
+
 def filetrans(exist, filedata):
         print "\n\nFile Sending\n\n"
 ##        key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
 ##        mode = AES.MODE_ECB #ECB AES
 ##        encryptor = AES.new(key, mode)
-        device = audiere.open_device()#Open and assign the audio device
         if exist == 1:
                 binfile = bin(int(binascii.hexlify(filedata), 16))
                 binfile = str(binfile[2:])
@@ -68,7 +81,10 @@ def filetrans(exist, filedata):
         else:
                 openfile = raw_input("Enter path to file: ")#File to encrypt
                 f = open(openfile)
-                file_data = f.read()#Read whole file into memory
+                ext = raw_input("Enter file extension as .extension: ")
+		header = "DATA:FILE"
+		ext = "EXT:" + ext
+		file_data = f.read()#Read whole file into memory
 
                 ##        if len(key) == 16:
                 ##                file_data += "\n" * (16-len(file_data) % 16)#Make length of file data 16 
@@ -78,7 +94,7 @@ def filetrans(exist, filedata):
                 #enc_file = base64.b64encode(file_data)#Encrypt
                 #print enc_file
 
-                header = "DATA:FILE"
+                file_data = header + ext + file_data
                 enc_file = bin(int(binascii.hexlify(file_data), 16))
                 print enc_file
                 enc_file = str(enc_file[2:])
@@ -87,7 +103,7 @@ def filetrans(exist, filedata):
                 for char in str(enc_file):
                   new_frequency(char)
                 f.close()
-
+		save(file_data)
 def openlaze():
         print "\n\nOpening a Laze File\n\n"
         fileloc = raw_input("Enter path to file: ")#File to read
@@ -107,4 +123,4 @@ if userin == '2':
         filetrans(0, 0)
 if userin == '3':
         openlaze()
-
+	
