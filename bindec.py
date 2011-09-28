@@ -12,11 +12,11 @@ from math import sqrt
 from Crypto.Cipher import AES
 from time import sleep
 
-chunk = 2048
+chunk = 4096
 FORMAT = pyaudio.paInt16
 HOST = pyaudio.paOSS
 CHANNELS = 1
-RATE = 44100
+RATE = 22050
 print "\nAvg. Message (120 characters) takes 1 minute\n"
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
 #key = raw_input("Enter expected key with a length of 16, or 32 Characters: ")

@@ -11,7 +11,7 @@ from time import sleep
 from math import sqrt
  
 device = audiere.open_device()#Open and assign the audio device
- 
+
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
         if yn == "y":
@@ -24,15 +24,15 @@ def save(filetext):
         if yn != "y":
                 raw_input("press enter to close")
                 exit()
- 
+
 def new_frequency(char):
-            if char == '1':
+            if int(char) == 1:
                 tone = device.create_square(450.00)
                 tone.play()
                 sleep(0.039)
                 tone.stop()
                 print '450'
-            if char == '0':
+            if int(char) == 0:
                 tone = device.create_square(350.00)
                 tone.play()
                 sleep(0.039)
@@ -49,6 +49,10 @@ def message(exist, messageold):
                 binmessage = str(binmessage[2:])
                 raw_input("Press enter to send " + messageold)
                 print binmessage
+                tone = device.create_tone(1000)
+                tone.play()
+                sleep(.5)
+                tone.stop()
                 for char in binmessage:
                   new_frequency(char)
                   print char
@@ -64,19 +68,31 @@ def message(exist, messageold):
                 binmessage = str(binmessage[2:])
                 raw_input("Press enter to send '" + message + "'")
                 print binmessage
+                tone = device.create_tone(1000)
+                tone.play()
+                sleep(.5)
+                tone.stop()
                 for char in binmessage:
                   new_frequency(char)
                 #save(message)
  
 def filetrans(exist, filedata):
+        tone = device.create_tone(1000)
+        tone.play()
+        sleep(1)
+        tone.stop()
         print "\n\nFile Sending\n\n"
-##        key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
-##        mode = AES.MODE_ECB #ECB AES
-##        encryptor = AES.new(key, mode)
+##      key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
+##      mode = AES.MODE_ECB #ECB AES
+##      encryptor = AES.new(key, mode)
         if exist == 1:
                 binfile = bin(int(binascii.hexlify(filedata), 16))
                 binfile = str(binfile[2:])
                 raw_input("Press enter to send the file")
+                tone = device.create_tone(1000)
+                tone.play()
+                sleep(.5)
+                tone.stop()
                 for char in binfile:
                   new_frequency(char)
                   print char
@@ -101,7 +117,10 @@ def filetrans(exist, filedata):
                 print enc_file
                 enc_file = str(enc_file[2:])
                 print enc_file
- 
+                tone = device.create_tone(1000)
+                tone.play()
+                sleep(.5)
+                tone.stop()
                 for char in str(enc_file):
                   new_frequency(char)
                 f.close()
@@ -125,3 +144,5 @@ if userin == '2':
         filetrans(0, 0)
 if userin == '3':
         openlaze()
+if userin != '1' and userin != '2' and userin != '3':
+        exit()
