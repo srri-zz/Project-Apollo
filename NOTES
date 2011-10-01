@@ -1,8 +1,17 @@
-So we can transfer data and read a signal, but we need a better means of 
-accuracy, as it can currently read the same tone emitted, twice, 3 times, or
-just skip over it. whether this means a sort of marker variable frequency
-to identify it is about to play a tone and another to signify it has finished
-playing a tone. or a type of counter number added on to the tone so each 
-tone is unique but decipherable on the receiving end.
+Counting.
 
-Brainstorm time :-D
+Play a base tone of 1000hz, if the first tone is a 1, add 100hz, if a 0 
+subtract 100hz and count on the other end by saying:
+
+if thefreq == 1000:
+	start reading:
+		if the freq is > 1000:
+			it's a 1
+			and log current frequency to variable
+		is the freq is < 1000:
+			it's a 0
+			and log current frequency to variable
+
+loop back and say if the next freq is > the last, it's a 1, if less, it's a 0
+
+BAM!
