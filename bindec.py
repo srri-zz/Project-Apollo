@@ -12,11 +12,11 @@ from math import sqrt
 from Crypto.Cipher import AES
 from time import sleep
 
-chunk = 4096
+chunk = 1024
 FORMAT = pyaudio.paInt16
 HOST = pyaudio.paOSS
 CHANNELS = 1
-RATE = 22050
+RATE = 44100
 print "\nAvg. Message (120 characters) takes 1 minute\n"
 RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
 #key = raw_input("Enter expected key with a length of 16, or 32 Characters: ")
@@ -70,7 +70,7 @@ stream = p.open(format =
 data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
 outputstring_enc = '0b'
-base = 1000
+base = 5000
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
@@ -87,13 +87,15 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        if int(round(thefreq, -2)) > base:
+        if int(round(thefreq, -2)) == (base + 100):
                 base += 100
-                print base
+                print '1'
+                print int(round(thefreq, -2)) 
                 outputstring_enc += '1'
-        elif int(round(thefreq, -2)) < base :
-                base += -100
-                print base
+        elif int(round(thefreq, -2)) == (base - 100) :
+                base -= 100
+                print '0'
+                print int(round(thefreq, -2))
                 outputstring_enc += '0'
     # read some more data
     data = wf.readframes(chunk)
@@ -121,3 +123,4 @@ if str(outputstring_enc.find('DATA:FILE')) == '0':
 	fileobjl.close()
 	raw_input("write successful, press enter to close")
 	exit()
+
