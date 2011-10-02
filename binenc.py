@@ -12,29 +12,9 @@ from math import sqrt
  
 device = audiere.open_device()#Open and assign the audio device
 currenttone = 0
-base = 1000
+base = 5000
 up = 100
 down = -100
-print base_tone
-
-def new_frequency(char):
-
-        if int(char) == 1:
-                tone = device.create_tone(base + up + currenttone) 
-                tone.play()
-                sleep(0.05)
-                tone.stop()
-                print '1'
-                currenttone += 100
-                print currenttone + base + down
-        if int(char) == 0:
-                tone = device.create_square(base + down + currenttone)
-                tone.play()
-                sleep(0.05)
-                tone.stop()
-                currenttone += -100
-                print currenttone + base + down
-                print '0'
 
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
@@ -65,19 +45,19 @@ def message(exist, messageold):
                   if int(char) == 1:
                         tone = device.create_tone(base + up + currenttone) 
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
+                        print base + up + currenttone
                         print '1'
                         currenttone += 100
-                        print currenttone + base + down
                   if int(char) == 0:
                         tone = device.create_square(base + down + currenttone)
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
-                        currenttone += -100
-                        print currenttone + base + down
+                        print base + down + currenttone
                         print '0'
+                        currenttone += -100
         else:
                 message = raw_input("Enter your message: \n")
         ##        if len(key) == 16:
@@ -92,22 +72,23 @@ def message(exist, messageold):
                 print binmessage
                 currenttone = 0
                 for char in binmessage:
+                  print char
                   if int(char) == 1:
                         tone = device.create_tone(base + up + currenttone) 
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
+                        print base + up + currenttone
                         print '1'
                         currenttone += 100
-                        print currenttone + base + down
                   if int(char) == 0:
                         tone = device.create_square(base + down + currenttone)
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
-                        currenttone += -100
-                        print currenttone + base + down
+                        print base + down + currenttone
                         print '0'
+                        currenttone += -100
                 #save(message)
  
 def filetrans(exist, filedata):
@@ -124,23 +105,24 @@ def filetrans(exist, filedata):
                 binfile = str(binfile[2:])
                 raw_input("Press enter to send the file")
                 currenttone = 0
-                for char in binfile:
+                for char in binmessage:
+                  print char
                   if int(char) == 1:
                         tone = device.create_tone(base + up + currenttone) 
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
+                        print base + up + currenttone
                         print '1'
                         currenttone += 100
-                        print currenttone + base + down
                   if int(char) == 0:
                         tone = device.create_square(base + down + currenttone)
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
-                        currenttone += -100
-                        print currenttone + base + down
+                        print base + down + currenttone
                         print '0'
+                        currenttone += -100
         else:
                 openfile = raw_input("Enter path to file: ")#File to encrypt
                 f = open(openfile)
@@ -163,23 +145,24 @@ def filetrans(exist, filedata):
                 enc_file = str(enc_file[2:])
                 print enc_file
                 currenttone = 0
-                for char in str(enc_file):
+                for char in binmessage:
+                  print char
                   if int(char) == 1:
                         tone = device.create_tone(base + up + currenttone) 
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
+                        print base + up + currenttone
                         print '1'
                         currenttone += 100
-                        print currenttone + base + down
                   if int(char) == 0:
                         tone = device.create_square(base + down + currenttone)
                         tone.play()
-                        sleep(0.05)
+                        sleep(0.07)
                         tone.stop()
-                        currenttone += -100
+                        print base + down + currenttone
                         print '0'
-                        print currenttone + base + down
+                        currenttone += -100
                 f.close()
         save(file_data)
 def openlaze():
