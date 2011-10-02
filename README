@@ -51,8 +51,6 @@ Changelog:
 	Version 1.00 - 9/13/2011 -Verified and Tested, just tinkering now, released binary version
 	Version 1.10 - 9/17/2011 -More work on Binary Encoding, super fancy now :D
 	Version 1.11 - 9/17/2011 -Completed other side of work for Binary Decoding
+	Version 2.00 - 10/2/2011 -Version 2.00, confirmed working, with near 100% accuracy
 Bugs:
-	Fatal Python Error on larger arrays of text/files - In V0.01
-	^ Resource issue with PyAudiere 
-	Ensure Decoding.py reads frequencies at same rate that encoding.py sends them,
-	IE: don't read same Freq. twice
+	None, currently :D

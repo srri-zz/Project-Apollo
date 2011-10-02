@@ -51,7 +51,7 @@ def message(exist, messageold):
                         print '1'
                         currenttone += 100
                   if int(char) == 0:
-                        tone = device.create_square(base + down + currenttone)
+                        tone = device.create_tone(base + down + currenttone)
                         tone.play()
                         sleep(0.07)
                         tone.stop()
@@ -82,7 +82,7 @@ def message(exist, messageold):
                         print '1'
                         currenttone += 100
                   if int(char) == 0:
-                        tone = device.create_square(base + down + currenttone)
+                        tone = device.create_tone(base + down + currenttone)
                         tone.play()
                         sleep(0.07)
                         tone.stop()
@@ -116,7 +116,7 @@ def filetrans(exist, filedata):
                         print '1'
                         currenttone += 100
                   if int(char) == 0:
-                        tone = device.create_square(base + down + currenttone)
+                        tone = device.create_tone(base + down + currenttone)
                         tone.play()
                         sleep(0.07)
                         tone.stop()
@@ -156,7 +156,7 @@ def filetrans(exist, filedata):
                         print '1'
                         currenttone += 100
                   if int(char) == 0:
-                        tone = device.create_square(base + down + currenttone)
+                        tone = device.create_tone(base + down + currenttone)
                         tone.play()
                         sleep(0.07)
                         tone.stop()
