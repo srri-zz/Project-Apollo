@@ -70,7 +70,7 @@ stream = p.open(format =
 data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
 outputstring_enc = '0b'
-counttotwo = 0
+base = 1000
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
@@ -87,10 +87,13 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        print thefreq
-        if int(thefreq) < 250 and int(thefreq) > 200 :
+        if int(round(thefreq, -2)) > base:
+                base += 100
+                print base
                 outputstring_enc += '1'
-        elif int(thefreq) < 180 and int(thefreq) > 170:
+        elif int(round(thefreq, -2)) < base :
+                base += -100
+                print base
                 outputstring_enc += '0'
     # read some more data
     data = wf.readframes(chunk)
