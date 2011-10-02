@@ -87,6 +87,7 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
+        print int(round(thefreq, -2))
         if int(round(thefreq, -2)) == (base + 100):
                 base += 100
                 print '1'
