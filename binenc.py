@@ -45,7 +45,7 @@ def message(exist, messageold):
                   if int(char) == 1:
                         tone = device.create_tone(base + up + currenttone) 
                         tone.play()
-                        sleep(0.07)
+                        sleep(0.015)
                         tone.stop()
                         print base + up + currenttone
                         print '1'
@@ -53,7 +53,7 @@ def message(exist, messageold):
                   if int(char) == 0:
                         tone = device.create_tone(base + down + currenttone)
                         tone.play()
-                        sleep(0.07)
+                        sleep(0.015)
                         tone.stop()
                         print base + down + currenttone
                         print '0'
