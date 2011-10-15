@@ -93,7 +93,7 @@ while len(data) == chunk*swidth:
         	found = 'true'
 	if found == 'true' and int(round(thefreq, -2)) != (10000):
 		tempvar = (5000 - int(round(thefreq, -1))) / 10
-		outputstring_enc += chr(abs(tempvar))
+		outputstring += chr(abs(tempvar))
 		found = 'false'        
     # read some more data
     data = wf.readframes(chunk)
