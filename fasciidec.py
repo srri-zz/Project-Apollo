@@ -9,7 +9,7 @@ import base64
 import binascii
 import os
 from math import sqrt
-from Crypto.Cipher import AES
+#from Crypto.Cipher import AES
 from time import sleep
 
 chunk = 1024
@@ -24,6 +24,11 @@ RECORD_SECONDS = raw_input("How Many Seconds would you like to record?: ")
 #encryptor = AES.new(key, mode)
 raw_input("Press any key to start recording")
 WAVE_OUTPUT_FILENAME = "read.wav"
+
+asciiRange = range(0,255)
+asciiDict = {}
+for num in asciiRange:
+ asciiDict = {chr(num), num}
 
 p = pyaudio.PyAudio()
 
@@ -87,14 +92,22 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        print int(round(thefreq, -2))
-        
-	if int(round(thefreq, -2)) == (10000):
+        if int(round(thefreq, -2)) == (10000):
         	found = 'true'
-	if found == 'true' and int(round(thefreq, -2)) != (10000):
-		tempvar = (5000 - int(round(thefreq, -1))) / 10
-		outputstring += chr(abs(tempvar))
-		found = 'false'        
+        	print 'found 10,000'
+        if found == 'true' and int(round(thefreq, -2)) != (10000) and int(round(thefreq, -1)) > 1000:
+                print 'raw'
+                print thefreq
+                print 'in found loop'
+                print 'round -1'
+                print int(round(thefreq, -1))
+                print 'round -2'
+                print int(round(thefreq, -2))
+                tempvar = (int(round(thefreq, -2)) - 1000) / 100
+                print tempvar
+                outputstring += chr(tempvar)
+                found = 'false'
+                print 'exiting found loop'
     # read some more data
     data = wf.readframes(chunk)
 if data:
@@ -104,20 +117,20 @@ p.terminate()
 
 #decrypted_string = base64.b64decode(outputstring_enc)
 print outputstring
-if str(outputstring_enc.find('DATA:MESSAGE')) == '0':
-	outputstring_enc = outputstring_enc.replace('DATA:MESSAGE','')
-	print outputstring_enc
-if str(outputstring_enc.find('DATA:FILE')) == '0':
-	name = raw_input("What would you like to name the file?: ")
-	fileobjl = open(name + ".laze", "w")
-	filetype = outputstring_enc[outputstring_enc.find('EXT:'):4]
-	fileobj = open(name + filetype, "w")
-	fileobjl.write(outputstring_enc)
-	outputstring_enc = outputstring_enc.replace('DATA:FILE', '')
-	outputstring_enc = outputstring_enc.replace('EXT:' + filetype, '')
-	fileobj.write(outputstring_enc)
-	fileobj.close()
-	fileobjl.close()
-	raw_input("write successful, press enter to close")
-	exit()
+##if str(outputstring_enc.find('DATA:MESSAGE')) == '0':
+##	outputstring_enc = outputstring_enc.replace('DATA:MESSAGE','')
+##	print outputstring_enc
+##if str(outputstring_enc.find('DATA:FILE')) == '0':
+##	name = raw_input("What would you like to name the file?: ")
+##	fileobjl = open(name + ".laze", "w")
+##	filetype = outputstring_enc[outputstring_enc.find('EXT:'):4]
+##	fileobj = open(name + filetype, "w")
+##	fileobjl.write(outputstring_enc)
+##	outputstring_enc = outputstring_enc.replace('DATA:FILE', '')
+##	outputstring_enc = outputstring_enc.replace('EXT:' + filetype, '')
+##	fileobj.write(outputstring_enc)
+##	fileobj.close()
+##	fileobjl.close()
+##	raw_input("write successful, press enter to close")
+##	exit()
 
