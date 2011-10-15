@@ -2,6 +2,7 @@
 #Steven Richards <sbrichards@{mit.edu, gnu.org}>
 #Sam Phippen <samphippen@googlemail.com>
 #ASCII encoder to frequency tone
+#Outdated - use fasciienc.py
 import audiere
 import base64
 import os
