@@ -36,7 +36,7 @@ def message(exist, messageold):
         if exist == 1:
                 binmessage = bin(int(binascii.hexlify(messageold), 16))
                 binmessage = str(binmessage[2:])
-                raw_input("Press enter to send " + messageold)
+		raw_input("Press enter to send " + messageold)
                 print binmessage
                 currenttone = 0
                 for char in binmessage:
@@ -65,16 +65,17 @@ def message(exist, messageold):
         ##          file_data += "\n" * (32-len(file_data) % 32)#Make length of file data 32
                 #header = 'DATA:MESSAGE'
                 #messagefix = header + message
-                
-                raw_input("Press enter to send:" + fmessage)
+                mtime = 0.06 * float(len(fmessage))
+		print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
+                raw_input("Press enter to send: " + fmessage)
                 currenttone = 0
                 for char in fmessage:
                   print char
 		  toneup.play()
 		  sleep(0.03)			
 		  toneup.stop()
-		  tone = device.create_tone(5000 + (ord(char) * 10))
-		  print 5000 + (ord(char) * 10)
+		  tone = device.create_tone(1000 + (ord(char) * 100))
+		  print 1000 + (ord(char) * 100)
 		  tone.play()
 		  sleep(0.03)
 		  tone.stop()
