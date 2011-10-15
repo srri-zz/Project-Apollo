@@ -16,6 +16,27 @@ base = 5000
 up = 100
 down = -100
 
+def playing(bindata):
+        currenttone = 0
+        for char in bindata:
+                 print char
+                 if int(char) == 1:
+                        tone = device.create_tone(base + up + currenttone) 
+                        tone.play()
+                        sleep(0.015)
+                        tone.stop()
+                        print base + up + currenttone
+                        print '1'
+                        currenttone += 100
+                 if int(char) == 0:
+                        tone = device.create_tone(base + down + currenttone)
+                        tone.play()
+                        sleep(0.015)
+                        tone.stop()
+                        print base + down + currenttone
+                        print '0'
+                        currenttone += -100
+
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
         if yn == "y":
@@ -38,26 +59,7 @@ def message(exist, messageold):
                 binmessage = bin(int(binascii.hexlify(messageold), 16))
                 binmessage = str(binmessage[2:])
                 raw_input("Press enter to send " + messageold)
-                print binmessage
-                currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.015)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.015)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
+                playing(binmessage)
         else:
                 message = raw_input("Enter your message: \n")
         ##        if len(key) == 16:
@@ -69,33 +71,10 @@ def message(exist, messageold):
                 binmessage = bin(int(binascii.hexlify(message), 16))
                 binmessage = str(binmessage[2:])
                 raw_input("Press enter to send '" + message + "'")
-                print binmessage
-                currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
-                #save(message)
+                playing(binmessage)
+                save(message)
  
 def filetrans(exist, filedata):
-        tone = device.create_tone(1000)
-        tone.play()
-        sleep(1)
-        tone.stop()
         print "\n\nFile Sending\n\n"
 ##      key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
 ##      mode = AES.MODE_ECB #ECB AES
@@ -104,25 +83,7 @@ def filetrans(exist, filedata):
                 binfile = bin(int(binascii.hexlify(filedata), 16))
                 binfile = str(binfile[2:])
                 raw_input("Press enter to send the file")
-                currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
+                playing(binfile)
         else:
                 openfile = raw_input("Enter path to file: ")#File to encrypt
                 f = open(openfile)
@@ -142,27 +103,8 @@ def filetrans(exist, filedata):
                 file_data = header + ext + file_data
                 enc_file = bin(int(binascii.hexlify(file_data), 16))
                 print enc_file
-                enc_file = str(enc_file[2:])
-                print enc_file
-                currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
+                binfile = str(enc_file[2:])
+                playing(binfile)
                 f.close()
         save(file_data)
 def openlaze():
