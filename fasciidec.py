@@ -69,8 +69,8 @@ stream = p.open(format =
 # read some data
 data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
-outputstring_enc = '0b'
-base = 5000
+outputstring = ''
+found = 'false'
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
@@ -88,26 +88,22 @@ while len(data) == chunk*swidth:
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
         print int(round(thefreq, -2))
-        if int(round(thefreq, -2)) == (base + 100):
-                base += 100
-                print '1'
-                print int(round(thefreq, -2)) 
-                outputstring_enc += '1'
-        elif int(round(thefreq, -2)) == (base - 100) :
-                base -= 100
-                print '0'
-                print int(round(thefreq, -2))
-                outputstring_enc += '0'
+        
+	if int(round(thefreq, -2)) == (10000):
+        	found = 'true'
+	if found == 'true' and int(round(thefreq, -2)) != (10000):
+		tempvar = (5000 - int(round(thefreq, -1))) / 10
+		outputstring_enc += chr(abs(tempvar))
+		found = 'false'        
     # read some more data
     data = wf.readframes(chunk)
 if data:
     stream.write(data)
 stream.close()
 p.terminate()
-decodedstring = int(outputstring_enc, 2)
-outputstring_enc = binascii.unhexlify('%x' % decodedstring)
+
 #decrypted_string = base64.b64decode(outputstring_enc)
-print outputstring_enc
+print outputstring
 if str(outputstring_enc.find('DATA:MESSAGE')) == '0':
 	outputstring_enc = outputstring_enc.replace('DATA:MESSAGE','')
 	print outputstring_enc

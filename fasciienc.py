@@ -1,6 +1,6 @@
 #Author: 
 #Steven Richards <sbrichards@{mit.edu, gnu.org}>
-#Binary Based AES256 Point-to-Point Laser Encoding
+#'FASCII' Based AES256 Point-to-Point Laser Encoding
  
 import audiere
 import base64
@@ -12,9 +12,8 @@ from math import sqrt
  
 device = audiere.open_device()#Open and assign the audio device
 currenttone = 0
-base = 5000
-up = 100
-down = -100
+toneup = device.create_tone(10000)
+tonedown = device.create_tone(9000)
 
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
@@ -59,36 +58,26 @@ def message(exist, messageold):
                         print '0'
                         currenttone += -100
         else:
-                message = raw_input("Enter your message: \n")
+                fmessage = raw_input("Enter your message: \n")
         ##        if len(key) == 16:
         ##      file_data += "\n" * (16-len(file_data) % 16)#Make length of file data 16 
         ##  else:
         ##          file_data += "\n" * (32-len(file_data) % 32)#Make length of file data 32
                 #header = 'DATA:MESSAGE'
                 #messagefix = header + message
-                binmessage = bin(int(binascii.hexlify(message), 16))
-                binmessage = str(binmessage[2:])
-                raw_input("Press enter to send '" + message + "'")
-                print binmessage
+                
+                raw_input("Press enter to send:" + fmessage)
                 currenttone = 0
-                for char in binmessage:
+                for char in fmessage:
                   print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
+		  toneup.play()
+		  sleep(0.03)			
+		  toneup.stop()
+		  tone = device.create_tone(5000 + (ord(char) * 10))
+		  print 5000 + (ord(char) * 10)
+		  tone.play()
+		  sleep(0.03)
+		  tone.stop()
                 #save(message)
  
 def filetrans(exist, filedata):
