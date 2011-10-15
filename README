@@ -52,5 +52,6 @@ Changelog:
 	Version 1.10 - 9/17/2011 -More work on Binary Encoding, super fancy now :D
 	Version 1.11 - 9/17/2011 -Completed other side of work for Binary Decoding
 	Version 2.00 - 10/2/2011 -Version 2.00, confirmed working, with near 100% accuracy
+	Version 3.00 - 10/15/2011-Version 3.00, FASCII works with same accuracy as Binary, now 8x faster
 Bugs:
 	None, currently :D
