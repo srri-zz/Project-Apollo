@@ -61,7 +61,7 @@ def message(exist, messageold):
 		print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
                 raw_input("Press enter to send: " + fasciimessage)
                 playing(fasciimessage)
-                save(message)
+                save(fasciimessage)
  
 def filetrans(exist, filedata):
         print "\n\nFile Sending\n\n"
