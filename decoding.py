@@ -1,5 +1,3 @@
-#Decoder code modified from Sample code for PyAudio
-#Added AES256 Encryption
 #outdated - use fasciidec.py
 import pyaudio
 import wave
