@@ -1,5 +1,5 @@
 #Author Steven Richards <sbrichards@mit.edu>
-#Binary Decoding over Laser/Audio
+#Fascii Live Decoding over Laser/Audio
 
 import pyaudio
 import wave
@@ -36,7 +36,8 @@ stream = p.open(format = FORMAT,
                 channels = CHANNELS,
                 rate = RATE,
                 input = True,
-                frames_per_buffer = chunk)
+                output = True,
+		frames_per_buffer = chunk)
 
 print "* recording"
 all = []
@@ -92,24 +93,12 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        if int(round(thefreq, -2)) == 4200:
-                print 'FOUND A SPACE'
         if int(round(thefreq, -2)) == (10000):
-         found = 'true'
-        	print 'found 10,000'
+                found = 'true'
         if found == 'true' and int(round(thefreq, -2)) != (10000) and int(round(thefreq, -1)) > 2000:
-                print 'raw'
-                print thefreq
-                print 'in found loop'
-                print 'round -1'
-                print int(round(thefreq, -1))
-                print 'round -2'
-                print int(round(thefreq, -2))
                 tempvar = (int(round(thefreq, -2)) - 2000) / 100
-                print tempvar
                 outputstring += chr(tempvar)
                 found = 'false'
-                print 'exiting found loop'
     # read some more data
     data = wf.readframes(chunk)
 if data:

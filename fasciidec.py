@@ -1,5 +1,5 @@
 #Author Steven Richards <sbrichards@mit.edu>
-#Binary Decoding over Laser/Audio
+#Fascii Decoding over Laser/Audio
 
 import pyaudio
 import wave
