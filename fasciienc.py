@@ -68,7 +68,7 @@ def filetrans(exist, filedata):
 ##      encryptor = AES.new(key, mode)
         if exist == 1:
                 fasciifile = filedata
-                raw_input("Press enter to Send')
+                raw_input("Press enter to Send")
                 mtime = 0.06 * float(len(filedata))
 		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
                 playing(fasciifile)
