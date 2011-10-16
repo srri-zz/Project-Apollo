@@ -1,6 +1,6 @@
 #Author: 
 #Steven Richards <sbrichards@{mit.edu, gnu.org}>
-#'FASCII' Based AES256 Point-to-Point Laser Encoding
+#'FASCII' Based AES256 Point-to-Point Light Encoding
  
 import audiere
 import base64
@@ -11,9 +11,18 @@ from time import sleep
 from math import sqrt
  
 device = audiere.open_device()#Open and assign the audio device
-currenttone = 0
-toneup = device.create_tone(10000)
-tonedown = device.create_tone(9000)
+
+def playing(fasciidata):
+	for char in fasciidata:
+                  print char
+		  toneup.play()
+		  sleep(0.03)			
+		  toneup.stop()
+		  tone = device.create_tone(1000 + (ord(char) * 100))
+		  print 1000 + (ord(char) * 100)
+		  tone.play()
+		  sleep(0.03)
+		  tone.stop()
 
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
@@ -34,85 +43,35 @@ def message(exist, messageold):
 ##  mode = AES.MODE_ECB #ECB AES
 ##  encryptor = AES.new(key, mode)
         if exist == 1:
-                binmessage = bin(int(binascii.hexlify(messageold), 16))
-                binmessage = str(binmessage[2:])
 		raw_input("Press enter to send " + messageold)
-                print binmessage
+                print fasciimessage
                 currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.015)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.015)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
+                playing(fasciimessage)
         else:
-                fmessage = raw_input("Enter your message: \n")
+                fasciimessage = raw_input("Enter your message: \n")
         ##        if len(key) == 16:
         ##      file_data += "\n" * (16-len(file_data) % 16)#Make length of file data 16 
         ##  else:
         ##          file_data += "\n" * (32-len(file_data) % 32)#Make length of file data 32
                 #header = 'DATA:MESSAGE'
                 #messagefix = header + message
-                mtime = 0.06 * float(len(fmessage))
+                mtime = 0.06 * float(len(fasciimessage))
 		print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
-                raw_input("Press enter to send: " + fmessage)
-                currenttone = 0
-                for char in fmessage:
-                  print char
-		  toneup.play()
-		  sleep(0.03)			
-		  toneup.stop()
-		  tone = device.create_tone(1000 + (ord(char) * 100))
-		  print 1000 + (ord(char) * 100)
-		  tone.play()
-		  sleep(0.03)
-		  tone.stop()
-                #save(message)
+                raw_input("Press enter to send: " + fasciimessage)
+                playing(fasciimessage)
+                save(message)
  
 def filetrans(exist, filedata):
-        tone = device.create_tone(1000)
-        tone.play()
-        sleep(1)
-        tone.stop()
         print "\n\nFile Sending\n\n"
 ##      key = raw_input("Enter a key with a length of 16, or 32 Characters: ")
 ##      mode = AES.MODE_ECB #ECB AES
 ##      encryptor = AES.new(key, mode)
         if exist == 1:
-                binfile = bin(int(binascii.hexlify(filedata), 16))
-                binfile = str(binfile[2:])
-                raw_input("Press enter to send the file")
-                currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
+                fasciifile = filedata
+                raw_input("Press enter to Send')
+                mtime = 0.06 * float(len(filedata))
+		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
+                playing(fasciifile)
         else:
                 openfile = raw_input("Enter path to file: ")#File to encrypt
                 f = open(openfile)
@@ -120,7 +79,6 @@ def filetrans(exist, filedata):
                 header = "DATA:FILE"
                 ext = "EXT:" + ext
                 file_data = f.read()#Read whole file into memory
- 
                 ##        if len(key) == 16:
                 ##                file_data += "\n" * (16-len(file_data) % 16)#Make length of file data 16 
                 ##        else:
@@ -128,33 +86,12 @@ def filetrans(exist, filedata):
                 ##
                 #enc_file = base64.b64encode(file_data)#Encrypt
                 #print enc_file
- 
                 file_data = header + ext + file_data
-                enc_file = bin(int(binascii.hexlify(file_data), 16))
-                print enc_file
-                enc_file = str(enc_file[2:])
-                print enc_file
-                currenttone = 0
-                for char in binmessage:
-                  print char
-                  if int(char) == 1:
-                        tone = device.create_tone(base + up + currenttone) 
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + up + currenttone
-                        print '1'
-                        currenttone += 100
-                  if int(char) == 0:
-                        tone = device.create_tone(base + down + currenttone)
-                        tone.play()
-                        sleep(0.07)
-                        tone.stop()
-                        print base + down + currenttone
-                        print '0'
-                        currenttone += -100
-                f.close()
-        save(file_data)
+                mtime = 0.06 * float(len(filedata))
+		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
+		raw_input('Press Enter to send')
+                playing(filedata)
+        	save(file_data)
 def openlaze():
         print "\n\nOpening a Laze File\n\n"
         fileloc = raw_input("Enter path to file: ")#File to read
