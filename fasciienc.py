@@ -20,8 +20,8 @@ def playing(fasciidata):
 		  toneup.play()
 		  sleep(0.03)			
 		  toneup.stop()
-		  tone = device.create_tone(1000 + (ord(char) * 100))
-		  print 1000 + (ord(char) * 100)
+		  tone = device.create_tone(2000 + (ord(char) * 100))
+		  print 2000 + (ord(char) * 100)
 		  tone.play()
 		  sleep(0.03)
 		  tone.stop()
@@ -89,10 +89,10 @@ def filetrans(exist, filedata):
                 #enc_file = base64.b64encode(file_data)#Encrypt
                 #print enc_file
                 file_data = header + ext + file_data
-                mtime = 0.06 * float(len(filedata))
+                mtime = 0.06 * float(len(file_data))
 		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
 		raw_input('Press Enter to send')
-                playing(filedata)
+                playing(file_data)
         	save(file_data)
 def openlaze():
         print "\n\nOpening a Laze File\n\n"
