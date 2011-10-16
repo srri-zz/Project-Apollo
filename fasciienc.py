@@ -61,7 +61,7 @@ def message(exist, messageold):
 		print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
                 raw_input("Press enter to send: " + fasciimessage)
                 playing(fasciimessage)
-                save(message)
+                save(fasciimessage)
  
 def filetrans(exist, filedata):
         print "\n\nFile Sending\n\n"
@@ -92,7 +92,7 @@ def filetrans(exist, filedata):
                 mtime = 0.06 * float(len(filedata))
 		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
 		raw_input('Press Enter to send')
-                playing(filedata)
+                playing(file_data)
         	save(file_data)
 def openlaze():
         print "\n\nOpening a Laze File\n\n"
