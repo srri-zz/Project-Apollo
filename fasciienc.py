@@ -12,6 +12,8 @@ from math import sqrt
  
 device = audiere.open_device()#Open and assign the audio device
 
+toneup = device.create_tone(10000)
+
 def playing(fasciidata):
 	for char in fasciidata:
                   print char
