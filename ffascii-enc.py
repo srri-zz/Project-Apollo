@@ -16,4 +16,4 @@ def tonegen(fasciidata):
 			print ((2000 + (ord(char) * 100) - 100))
 tonegen("hello")
 
-                
+#Note: I realize that the looping and re-assigning doesnt work, don't bitch about it, im tired                
