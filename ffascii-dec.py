@@ -76,6 +76,7 @@ data = wf.readframes(chunk)
 # play stream and find the frequency of each chunk
 outputstring = ''
 found = 'false'
+start = 1
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
