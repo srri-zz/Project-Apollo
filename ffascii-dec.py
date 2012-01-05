@@ -1,5 +1,5 @@
 #Author Steven Richards <sbrichards@mit.edu>
-#Fascii Decoding over Laser/Audio
+#Faster Fascii Decoding over Laser/Audio
 
 import pyaudio
 import wave
@@ -77,6 +77,7 @@ data = wf.readframes(chunk)
 outputstring = ''
 found = 'false'
 start = 1
+lasttone = 0
 while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
@@ -99,17 +100,25 @@ while len(data) == chunk*swidth:
               start = 0
               currentmode = 2
               juststarted = 1
-          else:
-              currentmode += 1
-        if found == 'true' and (int(round(thefreq, -2)) != (lasttone) or juststarted == 1):
+          
+        if found == 'true' and (int(round(thefreq, -2)) != (lasttone) or juststarted == 1) and (int(round(thefreq, -2))) > 2000:
+                print ('in found loop currentmode =',currentmode)
                 if currentmode % 2 == 0:
-                    tempvar = (int(round(thefreq, -2)) - 2100) / 100
+                    tempvar = ((int(round(thefreq, -2)) - 2100)/100)
                     outputstring += chr(tempvar)
                     lasttone = int(round(thefreq, -2))
+                    print 'in even'
+                    print currentmode
+                    currentmode += 1
+                    print currentmode
                 else:
-                    tempvar = (int(round(thefreq, -2)) - 1900) / 100
+                    tempvar = ((int(round(thefreq, -2)) - 1900)/100)
                     outputstring += chr(tempvar)
                     lasttone = int(round(thefreq, -2))
+                    print 'in odd'
+                    print currentmode
+                    currentmode += 1
+                    print currentmode
                 juststarted = 0
     # read some more data
     data = wf.readframes(chunk)
