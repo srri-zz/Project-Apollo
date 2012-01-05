@@ -25,6 +25,7 @@ def playing(fasciidata):
 			loop += 1
 			print char
 			print ((2000 + (ord(char) * 100) + 100))
+			print ((2000 + (ord(char) * 100)))
 		else:
 			tone = device.create_tone((2000 + (ord(char) * 100) - 100))
 			tone.play()
@@ -33,6 +34,7 @@ def playing(fasciidata):
 			loop += 1
 			print char
 			print ((2000 + (ord(char) * 100) - 100))
+			print ((2000 + (ord(char) * 100)))
 
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
@@ -65,7 +67,7 @@ def message(exist, messageold):
         ##          file_data += "\n" * (32-len(file_data) % 32)#Make length of file data 32
                 #header = 'DATA:MESSAGE'
                 #messagefix = header + message
-                mtime = 0.06 * float(len(fasciimessage))
+                mtime = 0.03 * float(len(fasciimessage))
 		print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
                 raw_input("Press enter to send: " + fasciimessage)
                 playing(fasciimessage)
