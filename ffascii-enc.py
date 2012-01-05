@@ -18,12 +18,18 @@ def playing(fasciidata):
 	loop = 2
 	for char in fasciidata:
        		if loop % 2 == 0:
-			#tone = device.create_tone((2000 + (ord(char) * 100) + 100)
+			tone = device.create_tone((2000 + (ord(char) * 100) + 100))
+			tone.play()
+	                sleep(0.03)
+        	        tone.stop()
 			loop += 1
 			print char
 			print ((2000 + (ord(char) * 100) + 100))
 		else:
-			#tone = device.create_tone((2000 + (ord(char) * 100) - 100)
+			tone = device.create_tone((2000 + (ord(char) * 100) - 100))
+			tone.play()
+	                sleep(0.03)
+        	        tone.stop()
 			loop += 1
 			print char
 			print ((2000 + (ord(char) * 100) - 100))
