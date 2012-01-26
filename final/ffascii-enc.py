@@ -6,7 +6,7 @@ import audiere
 import base64
 import binascii
 import os
-from Crypto.Cipher import AES
+#from Crypto.Cipher import AES
 from time import sleep
 from math import sqrt
  
@@ -15,26 +15,26 @@ device = audiere.open_device()#Open and assign the audio device
 
 
 def playing(fasciidata):
-	loop = 2
-	for char in fasciidata:
-       		if loop % 2 == 0:
-			tone = device.create_tone((2000 + (ord(char) * 100) + 100))
-			tone.play()
-	                sleep(0.03)
-        	        tone.stop()
-			loop += 1
-			print char
-			print ((2000 + (ord(char) * 100) + 100))
-			print ((2000 + (ord(char) * 100)))
-		else:
-			tone = device.create_tone((2000 + (ord(char) * 100) - 100))
-			tone.play()
-	                sleep(0.03)
-        	        tone.stop()
-			loop += 1
-			print char
-			print ((2000 + (ord(char) * 100) - 100))
-			print ((2000 + (ord(char) * 100)))
+        loop = 2
+        for char in fasciidata:
+                if loop % 2 == 0:
+                        tone = device.create_tone((2000 + (ord(char) * 100) + 100))
+                        tone.play()
+                        sleep(0.03)
+                        tone.stop()
+                        loop += 1
+                        print char
+                        print ((2000 + (ord(char) * 100) + 100))
+                        print ((2000 + (ord(char) * 100)))
+                else:
+                        tone = device.create_tone((2000 + (ord(char) * 100) - 100))
+                        tone.play()
+                        sleep(0.03)
+                        tone.stop()
+                        loop += 1
+                        print char
+                        print ((2000 + (ord(char) * 100) - 100))
+                        print ((2000 + (ord(char) * 100)))
 
 def save(filetext):
         yn = raw_input("Would you like to save your transmission?: y/n\n")
@@ -55,7 +55,7 @@ def message(exist, messageold):
 ##  mode = AES.MODE_ECB #ECB AES
 ##  encryptor = AES.new(key, mode)
         if exist == 1:
-		raw_input("Press enter to send " + messageold)
+                raw_input("Press enter to send " + messageold)
                 print fasciimessage
                 currenttone = 0
                 playing(fasciimessage)
@@ -68,7 +68,7 @@ def message(exist, messageold):
                 #header = 'DATA:MESSAGE'
                 #messagefix = header + message
                 mtime = 0.03 * float(len(fasciimessage))
-		print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
+                print 'Your message will take: ' + str(mtime) + ' seconds to transfer'
                 raw_input("Press enter to send: " + fasciimessage)
                 playing(fasciimessage)
                 save(fasciimessage)
@@ -82,7 +82,7 @@ def filetrans(exist, filedata):
                 fasciifile = filedata
                 raw_input("Press enter to Send")
                 mtime = 0.06 * float(len(filedata))
-		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
+                print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
                 playing(fasciifile)
         else:
                 openfile = raw_input("Enter path to file: ")#File to encrypt
@@ -100,10 +100,10 @@ def filetrans(exist, filedata):
                 #print enc_file
                 file_data = header + ext + file_data
                 mtime = 0.06 * float(len(file_data))
-		print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
-		raw_input('Press Enter to send')
+                print 'Your file will take: ' + str(mtime) + ' seconds to transfer'
+                raw_input('Press Enter to send')
                 playing(file_data)
-        	save(file_data)
+                save(file_data)
 def openlaze():
         print "\n\nOpening a Laze File\n\n"
         fileloc = raw_input("Enter path to file: ")#File to read
@@ -125,9 +125,3 @@ if userin == '3':
         openlaze()
 if userin != '1' and userin != '2' and userin != '3':
         exit()
-
-#Single Toned Fascii Function
-#Copyright 2011-2012 Steven Richards <sbrichards@mit.edu>
-
-
-               
