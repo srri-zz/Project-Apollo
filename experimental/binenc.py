@@ -1,4 +1,5 @@
-#Author: 
+#Authors:
+#Thomas Sohmers <trsohmers@mit.edu>
 #Steven Richards <sbrichards@{mit.edu, gnu.org}>
 #Binary Based AES256 Point-to-Point Laser Encoding
  

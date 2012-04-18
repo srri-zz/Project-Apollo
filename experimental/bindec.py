@@ -1,4 +1,5 @@
 #Author Steven Richards <sbrichards@mit.edu>
+#Method by Thomas Sohmers <trsohmers@mit.edu>
 #Binary Decoding over Laser/Audio
 
 import pyaudio
