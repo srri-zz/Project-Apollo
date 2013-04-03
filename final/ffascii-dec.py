@@ -58,7 +58,7 @@ wf.writeframes(data)
 wf.close()
 
 # open up a wave
-wf = wave.open('read.wav', 'rb')
+wf = wave.open('read.wav', 'rb') #edit the path to load up a sample wave file like sample.wav
 swidth = wf.getsampwidth()
 RATE = wf.getframerate()
 # use a Blackman window
@@ -104,21 +104,23 @@ while len(data) == chunk*swidth:
         if found == 'true' and (int(round(thefreq, -2)) != (lasttone) or juststarted == 1) and (int(round(thefreq, -2))) > 2000:
                 print ('in found loop currentmode =',currentmode)
                 if currentmode % 2 == 0:
-                    tempvar = ((int(round(thefreq, -2)) - 2100)/100)
-                    outputstring += chr(tempvar)
-                    lasttone = int(round(thefreq, -2))
-                    print 'in even'
-                    print currentmode
-                    currentmode += 1
-                    print currentmode
+					tempvar = ((int(round(thefreq, -2)) - 2100)/100)
+					outputstring += chr(tempvar)
+					print (chr(tempvar))
+					lasttone = int(round(thefreq, -2))
+					print 'in even'
+					print currentmode
+					currentmode += 1
+					print currentmode
                 else:
-                    tempvar = ((int(round(thefreq, -2)) - 1900)/100)
-                    outputstring += chr(tempvar)
-                    lasttone = int(round(thefreq, -2))
-                    print 'in odd'
-                    print currentmode
-                    currentmode += 1
-                    print currentmode
+					tempvar = ((int(round(thefreq, -2)) - 1900)/100)
+					outputstring += chr(tempvar)
+					print (chr(tempvar))
+					lasttone = int(round(thefreq, -2))
+					print 'in odd'
+					print currentmode
+					currentmode += 1
+					print currentmode
                 juststarted = 0
     # read some more data
     data = wf.readframes(chunk)
@@ -128,7 +130,9 @@ stream.close()
 p.terminate()
 
 #decrypted_string = base64.b64decode(outputstring_enc)
-print outputstring
+print ""
+print "Message Data: " + outputstring
+print ""
 ##if str(outputstring_enc.find('DATA:MESSAGE')) == '0':
 ##	outputstring_enc = outputstring_enc.replace('DATA:MESSAGE','')
 ##	print outputstring_enc
